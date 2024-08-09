@@ -3,10 +3,6 @@ create extension "basejump-supabase_test_helpers" version '0.0.6';
 
 select plan(29);
 
--- make sure we're setup for the test correctly
--- update saas.config
--- set enable_team_tenants = true;
-
 --- we insert a user into auth.users and return the id into user_id to use
 select tests.create_supabase_user('test1');
 select tests.create_supabase_user('test2');

@@ -3,10 +3,6 @@ create extension "basejump-supabase_test_helpers" version '0.0.6';
 
 select plan(6);
 
--- make sure we're setup for enabling personal tenants
--- update saas.config
--- set enable_team_tenants = true;
-
 -- create the users we need for testing
 select tests.create_supabase_user('primary_owner');
 select tests.create_supabase_user('invited_owner');

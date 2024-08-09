@@ -152,10 +152,15 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE saas.tenant_user TO authenticated,
 alter table saas.tenant_user
     enable row level security;
 
+/**
+* Profiles have the extended data for the users' platform.
+*/
 create table saas.profiles (
+  -- id of the user in the platform
   id uuid not null references auth.users on delete cascade,
   first_name text,
   last_name text,
+  -- the path to the image in the storage
   avatar text,
 
   primary key (id)
