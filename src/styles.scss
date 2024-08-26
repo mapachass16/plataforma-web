@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: auto;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full,
+.mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full {
+    background: red;
+    border-radius: 5px;
+}
