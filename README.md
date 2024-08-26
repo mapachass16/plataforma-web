@@ -1,89 +1,27 @@
-# Terceridad
+# PlataformaWeb
 
-Este repositorio contiene la plataforma web del proyecto Terceridad, que incluye un frontend en Angular y un backend utilizando Supabase.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.9.
 
-## Requisitos previos
+## Development server
 
-- Node.js (versión 20 o superior)
-- npm (normalmente viene con Node.js)
-- Docker (para ejecutar Supabase localmente)
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Configuración del backend (Supabase)
+## Code scaffolding
 
-### Instalación de Supabase CLI
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-1. Instala Supabase CLI globalmente:
-   ```
-   npm install -g supabase
-   ```
+## Build
 
-2. Verifica la instalación:
-   ```
-   supabase --version
-   ```
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-### Inicialización del proyecto Supabase
+## Running unit tests
 
-1. Descarga el repositorio del proyecto:
-   ```
-   git clone git@github.com:Terceridad/plataforma-web.git
-   cd plataforma-web
-   ```
-El repositorio ya tiene la configuración de supabase.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-2. Inicia los servicios de Supabase localmente:
-   ```
-   supabase start
-   ```
+## Running end-to-end tests
 
-### Ejecución de pruebas
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-Para ejecutar las pruebas del backend:
+## Further help
 
-```
-supabase test db
-```
-
-## Configuración del frontend (Angular)
-
-1. Navega al directorio raíz del proyecto:
-   ```
-   cd plataforma-web
-   ```
-
-2. Instala las dependencias:
-   ```
-   npm install
-   ```
-
-3. Inicia el servidor de desarrollo:
-   ```
-   ng serve
-   ```
-
-4. Abre tu navegador y visita `http://localhost:4200`
-
-## Desarrollo
-
-1. Para trabajar en el proyecto, asegúrate de que Supabase esté ejecutándose localmente:
-   ```
-   supabase start
-   ```
-
-2. Desarrolla tu aplicación Angular normalmente.
-
-3. Para aplicar cambios en la base de datos, crea nuevas migraciones:
-   ```
-   supabase migration new nombre_de_la_migracion
-   ```
-
-4. Aplica las nuevas migraciones:
-   ```
-   supabase link XXXXXXXXXX  # Remplace con el id del proyecto en la plataforma de Supabase
-
-   supabase db push
-   ```
-
-## Contribuciones
-
-Para las contribuciones crear un pull request.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
