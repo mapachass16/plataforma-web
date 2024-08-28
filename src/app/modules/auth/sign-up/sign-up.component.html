@@ -1,0 +1,90 @@
+<div class="row sign-in-row">
+    <mat-card class="sign-in-card" appearance="outlined">
+        <div class="title">Crear cuenta</div>
+        <div class="subtitle">Introduzca sus credenciales para crear su cuenta</div>
+        <div class="button-container">
+            <!-- Botón de Cuenta Familia -->
+            <mat-card class="account-button" *ngIf="!family" (click)="changeTypeAccount('family')">
+                <mat-card-content>
+                    <img src="../../../../assets/grandparents.png" alt="family" />
+                    <p class="account-text">Cuenta Familiar</p>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="account-button-selected" *ngIf="family" (click)="changeTypeAccount('family')">
+                <mat-card-content>
+                    <img src="../../../../assets/grandparents2.png" alt="family" />
+                    <p class="account-text">Cuenta Familiar</p>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Botón de Cuenta Empresa -->
+            <mat-card class="account-button" *ngIf="!company" (click)="changeTypeAccount('company')">
+                <mat-card-content>
+                    <img src="../../../../assets/company.png" alt="family" />
+                    <p class="account-text">Cuenta Empresa</p>
+                </mat-card-content>
+            </mat-card>
+
+
+            <mat-card class="account-button-selected" *ngIf="company" (click)="changeTypeAccount('company')">
+                <mat-card-content>
+                    <img src="../../../../assets/company2.png" alt="family" />
+                    <p class="account-text">Cuenta Empresa</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <button class="google-login-btn">
+            <img src="../../../../assets/logoGoogle.png" alt="Google Logo" />
+            Iniciar con Google
+        </button>
+        <div class="divider-container">
+            <div class="line"></div>
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Nombre</mat-label>
+                <input matInput type="text" formControlName="name" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width" *ngIf="company">
+                <mat-label>Nombre de la empresa</mat-label>
+                <input matInput type="text" formControlName="companyName" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput type="email" formControlName="email" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width small">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width small">
+                <mat-label>Confirmar contraseña</mat-label>
+                <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="password2" />
+                <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-pressed]="hide2">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+
+                <mat-error *ngIf="signUpForm.controls['password2'].hasError('matchWith')|| checkPassword()">
+                    Las contraseñas no coinciden
+                </mat-error>
+            </mat-form-field>
+            <div class="create-account-row">
+                ¿Ya tiene cuenta? <span (click)="signIn()">Entre aquí</span>
+            </div>
+
+            <button mat-raised-button class="submit-btn" type=" submit" [disabled]="signUpForm.invalid">Crear
+                cuenta</button>
+        </form>
+    </mat-card>
+</div>

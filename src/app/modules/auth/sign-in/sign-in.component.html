@@ -32,7 +32,7 @@
                 <div class="column forget-password">¿Olvidaste la contraseña?</div>
             </div>
             <div class="create-account-row">
-                ¿No estás registrado? <span>Crea una cuenta</span>
+                ¿No estás registrado? <span (click)="createAccount()">Crea una cuenta</span>
             </div>
 
             <button mat-raised-button class="submit-btn" type=" submit" [disabled]="loginForm.invalid">Entrar</button>

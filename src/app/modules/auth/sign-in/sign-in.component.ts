@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,7 +21,9 @@ export class SignInComponent {
   hide = true;
   loginForm: FormGroup;
 
-  constructor() {
+  constructor(
+    private _router: Router
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
@@ -31,5 +34,9 @@ export class SignInComponent {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value); // Aquí obtienes los valores del formulario
     }
+  }
+
+  public createAccount() {
+    this._router.navigate(['/sign-up']);
   }
 }
