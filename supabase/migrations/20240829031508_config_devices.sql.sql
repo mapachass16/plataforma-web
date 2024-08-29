@@ -54,3 +54,9 @@ CREATE TABLE iot_medical_devices (
 
 -- RLS para user_tenants
 ALTER TABLE iot_medical_devices ENABLE ROW LEVEL SECURITY;    
+CREATE POLICY iot_medical_devices_access_policy ON iot_medical_devices
+    USING (auth.uid() IN (
+        SELECT user_id FROM saas.tenant_user ut
+        JOIN iot_devices id ON ut.tenant_id = id.tenant_id
+        JOIN medical_devices md ON id.id = md.iot_device_id
+    ));
