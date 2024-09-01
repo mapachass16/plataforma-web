@@ -33,10 +33,11 @@ export class SignInComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value); // Aquí obtienes los valores del formulario
+      this._router.navigate(['/admin/dashboard']);
     }
   }
 
   public createAccount() {
-    this._router.navigate(['/sign-up']);
+    this._router.navigate(['/auth/sign-up']);
   }
 }

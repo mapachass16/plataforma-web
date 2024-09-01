@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer mode="side" class="sidenav" [opened]="true">
+        <div class="logo">
+            <img src="../../../../../assets/logoTest.png" alt="">
+        </div>
+
+        <mat-nav-list class="sidenav-content">
+            <mat-list-item class="option-sidenav" routerLink="/admin/dashboard"> <mat-icon
+                    class="material-icons-outlined">dashboard</mat-icon>
+                Dashboard</mat-list-item>
+            <mat-list-item class="option-sidenav" routerLink="/about">Dashboard 2</mat-list-item>
+            <mat-list-item class="option-sidenav" routerLink="/contact">Contacto</mat-list-item>
+
+            <!-- Espacio flexible para empujar el botón hacia abajo -->
+            <div class="spacer"></div>
+
+            <!-- Botón de cerrar sesión al final -->
+            <mat-list-item (click)="logout()" class="logout-button">
+                <mat-icon>logout</mat-icon> Cerrar sesión
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+
+
+
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <button mat-icon-button (click)="drawer.toggle()" aria-label="Toggle sidebar">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span><mat-icon class="material-icons-outlined">person</mat-icon> María Paula Chaves</span>
+        </mat-toolbar>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

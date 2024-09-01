@@ -10,8 +10,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full,
-.mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full {
-    background: red;
-    border-radius: 5px;
+:root {
+    --mdc-list-item-label-text-color: white !important;
+    /* Cambia el color del texto globalmente */
 }
