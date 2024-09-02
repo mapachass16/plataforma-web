@@ -19,7 +19,7 @@
     width: 250px;
     display: flex;
     flex-direction: column;
-    background-color: #1B2559;
+    background-color: #E1E2EB;
 }
 
 .mat-drawer-content {
@@ -84,20 +84,20 @@
 }
 
 :host ::ng-deep .mdc-list-item__primary-text {
-    color: white !important
+    color: #1B2559 !important
 }
 
 :host ::ng-deep .mdc-list-item__primary-text:hover {
-    color: white !important;
+    color: #1B2559 !important;
     text-decoration: underline;
 }
 
 :host ::ng-deep .mdc-list-item__primary-text:active {
-    color: white !important;
+    color: #1B2559 !important;
     text-decoration: underline;
 }
 
 :host ::ng-deep .mdc-list-item__primary-text:focus {
-    color: white !important;
+    color: #1B2559 !important;
     text-decoration: underline;
 }

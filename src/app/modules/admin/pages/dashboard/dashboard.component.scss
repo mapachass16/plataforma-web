@@ -35,12 +35,14 @@
     .mat-elevation-z8 {
         max-height: 400px;
         overflow-y: auto;
+        border-radius: 8px;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
         overflow-x: auto;
+
     }
 
     th,
