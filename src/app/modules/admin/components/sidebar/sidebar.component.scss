@@ -19,7 +19,11 @@
     width: 250px;
     display: flex;
     flex-direction: column;
-    background-color: #a1a1a2;
+    background-color: #1B2559;
+}
+
+.mat-drawer-content {
+    background-color: white;
 }
 
 
@@ -27,7 +31,7 @@
     display: flex;
     flex-direction: column;
     height: 88%;
-    color: white;
+    color: yellow;
 }
 
 .option-sidenav mat-icon {
