@@ -5,6 +5,8 @@ import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/mat
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 
 export interface UserData {
@@ -50,7 +52,7 @@ const NAMES: string[] = [
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatCardModule, MatInputModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
+  imports: [MatCardModule, MatInputModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,7 +63,7 @@ export class DashboardComponent implements AfterViewInit {
   monitored: number = 20;
   devices: number = 10;
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
+  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'actions'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -88,6 +90,11 @@ export class DashboardComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  public seeDetails(name: string) {
+    console.log(name)
+  }
+
 }
 
 /** Builds and returns a new User. */
@@ -104,4 +111,7 @@ function createNewUser(id: number): UserData {
     progress: Math.round(Math.random() * 100).toString(),
     fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
   };
+
 }
+
+
