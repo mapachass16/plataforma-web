@@ -32,14 +32,12 @@
         font-weight: bold;
         font-size: 25px;
         font-style: normal;
-        color: #1B2559;
+        color: #FF6F61;
         letter-spacing: 1px;
         margin-bottom: 3%;
     }
 
     .subtitle {
-        //font-family: "Plus Jakarta Sans", sans-serif;
-        //font-weight: 600;
         font-size: 12px;
         font-style: normal;
         color: #718096;
@@ -59,7 +57,7 @@
         justify-content: center;
         width: 40%;
         height: 25%;
-        border: 1px solid #1B2559;
+        border: 1px solid #00B2A9;
         background-color: white;
         border-radius: 8px;
         cursor: pointer;
@@ -74,7 +72,7 @@
         .account-text {
             font-size: 16px;
             font-weight: 500;
-            color: #1B2559;
+            color: #00B2A9;
         }
     }
 
@@ -84,8 +82,8 @@
         justify-content: center;
         width: 40%;
         height: 25%;
-        border: 1px solid #1B2559;
-        background-color: #1B2559;
+        border: 1px solid #00B2A9;
+        background-color: #00B2A9;
         border-radius: 8px;
         cursor: pointer;
         transition: box-shadow 0.3s ease;
@@ -103,6 +101,8 @@
         }
     }
 
+
+
     .account-button:hover {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
@@ -111,21 +111,6 @@
         font-size: 48px;
         margin-bottom: 10px;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     .google-login-btn {
@@ -140,7 +125,7 @@
         cursor: pointer;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s ease;
-        color: #1B2559;
+        color: #718096;
         font-family: "Plus Jakarta Sans", sans-serif;
         font-weight: 600;
     }
@@ -188,7 +173,7 @@
     }
 
     mat-icon {
-        color: #1B2559;
+        color: #00B2A9;
     }
 
     .submit-btn {
@@ -196,7 +181,7 @@
         align-items: center;
         justify-content: center;
         padding: 6% 0%;
-        background-color: #1B2559;
+        background-color: #00B2A9;
         border: 1px solid #ccc;
         border-radius: 8px;
         font-size: 16px;
@@ -235,11 +220,11 @@
         text-align: center;
         font-size: 12px;
         font-style: normal;
-        color: #1B2559;
+        color: #718096;
         margin-bottom: 3%;
 
         span {
-            color: #603CFF;
+            color: #FF6F61;
             font-weight: 500;
             cursor: pointer;
         }

@@ -32,7 +32,7 @@
         font-weight: bold;
         font-size: 25px;
         font-style: normal;
-        color: #1B2559;
+        color: #FF6F61;
         letter-spacing: 1px;
         margin-bottom: 3%;
     }
@@ -56,7 +56,7 @@
         cursor: pointer;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s ease;
-        color: #1B2559;
+        color: #718096;
         font-family: "Plus Jakarta Sans", sans-serif;
         font-weight: 600;
     }
@@ -104,7 +104,7 @@
     }
 
     mat-icon {
-        color: #1B2559;
+        color: #00B2A9;
     }
 
     .submit-btn {
@@ -112,7 +112,7 @@
         align-items: center;
         justify-content: center;
         padding: 6% 0%;
-        background-color: #1B2559;
+        background-color: #00B2A9;
         border: 1px solid #ccc;
         border-radius: 8px;
         font-size: 16px;
@@ -141,7 +141,7 @@
         margin: auto;
         font-size: 12px;
         font-style: normal;
-        color: #603CFF;
+        color: #FF6F61;
         text-align: right;
         text-decoration: underline;
         cursor: pointer;
@@ -151,11 +151,11 @@
         text-align: center;
         font-size: 12px;
         font-style: normal;
-        color: #1B2559;
+        color: #718096;
         margin-bottom: 3%;
 
         span {
-            color: #603CFF;
+            color: #FF6F61;
             font-weight: 500;
             cursor: pointer;
         }
@@ -181,10 +181,10 @@
 
 .mat-mdc-checkbox {
     --mdc-checkbox-selected-checkmark-color: #ffffff;
-    --mdc-checkbox-selected-icon-color: #1B2559;
-    --mdc-checkbox-selected-focus-icon-color: #1B2559;
-    --mdc-checkbox-selected-hover-icon-color: #1B2559;
-    --mdc-checkbox-selected-pressed-icon-color: #1B2559;
+    --mdc-checkbox-selected-icon-color: #FF6F61;
+    --mdc-checkbox-selected-focus-icon-color: #FF6F61;
+    --mdc-checkbox-selected-hover-icon-color: #FF6F61;
+    --mdc-checkbox-selected-pressed-icon-color: #FF6F61;
     --mdc-checkbox-state-layer-size: 0;
     --mdc-checkbox-unselected-focus-state-layer-opacity: 0;
 
@@ -194,7 +194,7 @@
                 --mdc-checkbox-disabled-selected-icon-color: transparent;
 
                 .mdc-checkbox__checkmark {
-                    color: #1B2559;
+                    color: #FF6F61;
                 }
             }
         }
@@ -202,7 +202,7 @@
 
     .mdc-checkbox {
         .mdc-checkbox__background {
-            color: #1B2559;
+            color: #FF6F61;
         }
     }
 
@@ -214,6 +214,6 @@
 ::ng-deep .mdc-label {
     font-size: 12px;
     font-style: normal;
-    color: #1B2559;
+    color: #718096;
     letter-spacing: 1px;
 }
