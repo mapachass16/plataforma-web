@@ -1,3 +1,5 @@
+CREATE TYPE gender AS ENUM ('M', 'F', 'O');
+
 -- Tabla de usuarios de dispositivos (pacientes)
 CREATE TABLE device_users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -5,7 +7,9 @@ CREATE TABLE device_users (
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     date_of_birth DATE,
-    gender TEXT,
+    weight DECIMAL NOT NULL,
+    height DECIMAL NOT NULL,
+    gender gender,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
