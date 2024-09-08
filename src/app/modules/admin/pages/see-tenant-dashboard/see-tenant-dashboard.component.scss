@@ -1,36 +1,25 @@
-.dashboard {
-    .cards {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        margin: 2% 0;
+.body {
+    padding: 2%;
 
-        mat-card {
-            display: flex;
-            flex-direction: column;
-            width: 15%;
-            height: 100px;
-            border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-            color: #718096;
+    .title {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: bold;
+        font-size: 25px;
+        font-style: normal;
+        color: #FF6F61;
+        letter-spacing: 1px;
+        margin-bottom: 3%;
+    }
 
-            .number-card {
-                font-size: 18px;
-            }
-
-            .title-card {
-                font-size: 20px;
-                font-weight: 500;
-            }
-        }
+    .subtitle {
+        font-size: 20px;
+        font-style: normal;
+        color: #718096;
+        margin-bottom: 1%;
     }
 
     .table-div {
-        padding: 0 5% 2%;
+        padding: 0 0 2%;
     }
 
     .filter-row {
@@ -101,4 +90,5 @@
         font-size: 14px;
         width: 100%;
     }
+
 }

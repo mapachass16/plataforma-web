@@ -8,9 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogCreateTenantComponent } from '../dialog-create-tenant/dialog-create-tenant.component';
+import { DialogCreateTenantComponent } from '../../components/dialog-create-tenant/dialog-create-tenant.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 const NAMES = [
@@ -75,7 +76,8 @@ export class DashboardComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    public _MatPaginatorIntl: MatPaginatorIntl
+    public _MatPaginatorIntl: MatPaginatorIntl,
+    private _router: Router
   ) {
     const users = Array.from({ length: 10 }, (_, k) => createNewUser(k + 1));
     this.dataSource = new MatTableDataSource(users);
@@ -96,8 +98,8 @@ export class DashboardComponent implements AfterViewInit {
     }
   }
 
-  public seeDetails(name: string) {
-    console.log(name)
+  public seeDetails(id: string) {
+    this._router.navigate(['/admin/see-tenant-dashboard', id]);
   }
 
   public deleteTenant(name: string) {
