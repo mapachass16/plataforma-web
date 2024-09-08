@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, AfterViewInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, AfterViewInit, ViewChild, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
@@ -7,6 +7,9 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCreateTenantComponent } from '../dialog-create-tenant/dialog-create-tenant.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 export interface UserData {
@@ -52,7 +55,7 @@ const NAMES: string[] = [
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatCardModule, MatInputModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule],
+  imports: [MatCardModule, MatInputModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTooltipModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -62,8 +65,10 @@ export class DashboardComponent implements AfterViewInit {
   users: number = 30;
   monitored: number = 20;
   devices: number = 10;
+  readonly dialog = inject(MatDialog);
 
   displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'actions'];
+  //displayedColumns: string[] = ['id', 'account', 'owner', 'users', 'devices', 'deviceIoT', 'status', 'actions'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -93,6 +98,17 @@ export class DashboardComponent implements AfterViewInit {
 
   public seeDetails(name: string) {
     console.log(name)
+  }
+
+  public deleteTenant(name: string) {
+    console.log(name)
+  }
+
+  public createTenant() {
+    this.dialog.open(DialogCreateTenantComponent, {
+      width: '30%',
+      height: 'auto',
+    });
   }
 
 }

@@ -1,9 +1,16 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -11,14 +18,14 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-sign-up',
+  selector: 'app-dialog-create-tenant',
   standalone: true,
-  imports: [MatCardModule, MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatCheckboxModule, CommonModule],
-  templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.scss',
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, MatCardModule, MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule, ReactiveFormsModule, MatCheckboxModule, CommonModule],
+  templateUrl: './dialog-create-tenant.component.html',
+  styleUrl: './dialog-create-tenant.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignUpComponent {
+export class DialogCreateTenantComponent {
   hide = true;
   hide2 = true;
   signUpForm: FormGroup;
@@ -44,13 +51,9 @@ export class SignUpComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      console.log(this.signUpForm.value);
+      console.log(this.signUpForm.value); // Aquí obtienes los valores del formulario
       this._router.navigate(['/admin/sign-in']);
     }
-  }
-
-  public signIn() {
-    this._router.navigate(['/auth/sign-in']);
   }
 
   public checkPassword() {
@@ -67,7 +70,6 @@ export class SignUpComponent {
     }
   }
 
-
   public changeTypeAccount(type: string) {
     if (type === "family") {
       this.family = true;
@@ -79,4 +81,3 @@ export class SignUpComponent {
 
   }
 }
-

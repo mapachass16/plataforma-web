@@ -10,21 +10,12 @@
 
 .sign-in-row {
     justify-content: center;
-    align-items: center;
     margin: 1% 0;
 }
 
-.sign-in-card:hover {
-    box-shadow: 0 15px 16px rgba(0, 0, 0, 0.2);
-}
 
 .sign-in-card {
-    width: 32%;
-    margin: 2% 0;
-    padding: 2%;
-    border-radius: 8px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+    padding: 4%;
 
 
     .title {
@@ -114,6 +105,7 @@
     .google-login-btn {
         display: flex;
         align-items: center;
+        width: 100%;
         justify-content: center;
         padding: 4% 0%;
         background-color: #ffffff;
@@ -178,7 +170,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 6% 0%;
+        padding: 7% 0%;
         background-color: #00B2A9;
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -218,23 +210,6 @@
         text-decoration: underline;
         cursor: pointer;
     }
-
-    .create-account-row {
-        text-align: center;
-        font-size: 12px;
-        font-style: normal;
-        color: #718096;
-        margin-bottom: 3%;
-
-        span {
-            color: #FF6F61;
-            font-weight: 500;
-            cursor: pointer;
-        }
-    }
-
-
-
 }
 
 

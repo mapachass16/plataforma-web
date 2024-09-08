@@ -1,7 +1,7 @@
 <div class="row sign-in-row">
-    <mat-card class="sign-in-card" appearance="outlined">
+    <div class="sign-in-card" appearance="outlined">
         <div class="title">Crear cuenta</div>
-        <div class="subtitle">Introduzca sus credenciales para crear su cuenta</div>
+        <div class="subtitle">Introduzca los credenciales para crear la cuenta</div>
         <div class="button-container">
             <!-- Botón de Cuenta Familia -->
             <mat-card class="account-button" *ngIf="!family" (click)="changeTypeAccount('family')">
@@ -70,7 +70,7 @@
 
             <mat-form-field appearance="outline" class="full-width small">
                 <mat-label>Confirmar contraseña</mat-label>
-                <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="password2" />
+                <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="password2" required />
                 <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-pressed]="hide2">
                     <mat-icon>{{ hide2 ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
@@ -79,12 +79,10 @@
                     Las contraseñas no coinciden
                 </mat-error>
             </mat-form-field>
-            <div class="create-account-row">
-                ¿Ya tiene cuenta? <span (click)="signIn()">Entre aquí</span>
-            </div>
+
 
             <button mat-raised-button class="submit-btn" type=" submit" [disabled]="signUpForm.invalid">Crear
                 cuenta</button>
         </form>
-    </mat-card>
+    </div>
 </div>
