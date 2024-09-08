@@ -10,52 +10,53 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateTenantComponent } from '../dialog-create-tenant/dialog-create-tenant.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CommonModule } from '@angular/common';
 
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
+const NAMES = [
+  'Familia Pérez',
+  'Familia Gómez',
+  'Familia Rodríguez',
+  'Familia Fernández',
+  'Familia López',
+  'Familia Martínez',
+  'Familia González',
+  'Familia Sánchez',
+  'Familia Díaz',
+  'Familia Castro'
 ];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
+
+const OWNERS: string[] = [
+  'Maia S',
+  'Asher G',
+  'Olivia D',
+  'Atticus T',
+  'Amelia Q',
+  'Jack R',
+  'Charlotte V',
+  'Theodore H',
+  'Isla O',
+  'Oliver A',
+  'Isabella P',
+  'Jasper R',
+  'Cora N',
+  'Levi L',
+  'Violet P',
+  'Arthur S',
+  'Mia A',
+  'Thomas J',
+  'Elizabeth K',
 ];
+
+const OPTIONS: string[] = [
+  'On', 'Off'
+];
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatCardModule, MatInputModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTooltipModule],
+  imports: [MatCardModule, MatInputModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTooltipModule, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,9 +68,8 @@ export class DashboardComponent implements AfterViewInit {
   devices: number = 10;
   readonly dialog = inject(MatDialog);
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'actions'];
-  //displayedColumns: string[] = ['id', 'account', 'owner', 'users', 'devices', 'deviceIoT', 'status', 'actions'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['id', 'account', 'owner', 'users', 'devices', 'deviceIoT', 'status', 'actions'];
+  dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -77,7 +77,7 @@ export class DashboardComponent implements AfterViewInit {
   constructor(
     public _MatPaginatorIntl: MatPaginatorIntl
   ) {
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
+    const users = Array.from({ length: 10 }, (_, k) => createNewUser(k + 1));
     this.dataSource = new MatTableDataSource(users);
   }
 
@@ -114,18 +114,21 @@ export class DashboardComponent implements AfterViewInit {
 }
 
 /** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
+function createNewUser(id: number): any {
   const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))];
+
+  const owner =
+    OWNERS[Math.round(Math.random() * (OWNERS.length - 1))];
 
   return {
     id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+    account: name,
+    owner: owner,
+    users: Math.floor(Math.random() * 10) + 1,
+    devices: Math.floor(Math.random() * 10) + 1,
+    deviceIoT: OPTIONS[Math.floor(Math.random() * OPTIONS.length)],
+    status: OPTIONS[Math.floor(Math.random() * OPTIONS.length)]
   };
 
 }

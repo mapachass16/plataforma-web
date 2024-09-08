@@ -50,26 +50,52 @@
                     <td mat-cell *matCellDef="let row"> {{row.id}} </td>
                 </ng-container>
 
-                <!-- Progress Column -->
-                <ng-container matColumnDef="progress">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-                    <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+                <!-- Account Column -->
+                <ng-container matColumnDef="account">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cuenta </th>
+                    <td mat-cell *matCellDef="let row"> {{row.account}} </td>
                 </ng-container>
 
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                    <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+                <!-- Owner Column -->
+                <ng-container matColumnDef="owner">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Dueño </th>
+                    <td mat-cell *matCellDef="let row"> {{row.owner}} </td>
                 </ng-container>
 
-                <!-- Fruit Column -->
-                <ng-container matColumnDef="fruit">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
-                    <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
+                <!-- Users Column -->
+                <ng-container matColumnDef="users">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuarios </th>
+                    <td mat-cell *matCellDef="let row"> {{row.users}} </td>
                 </ng-container>
 
+                <!-- Devices Column -->
+                <ng-container matColumnDef="devices">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Dispositivos </th>
+                    <td mat-cell *matCellDef="let row"> {{row.devices}} </td>
+                </ng-container>
+
+                <!-- DeviceIoT Column -->
+                <ng-container matColumnDef="deviceIoT">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Device IoT </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-icon *ngIf="row.deviceIoT === 'On'" class="on-icon">radio_button_checked</mat-icon>
+                        <mat-icon *ngIf="row.deviceIoT === 'Off'" class="off-icon">radio_button_checked</mat-icon>
+                    </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Online </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-icon *ngIf="row.status === 'On'" class="on-icon">radio_button_checked</mat-icon>
+                        <mat-icon *ngIf="row.status === 'Off'" class="off-icon">radio_button_checked</mat-icon>
+                    </td>
+                </ng-container>
+
+
+                <!-- Actions Column -->
                 <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                     <td mat-cell *matCellDef="let row"><button mat-button (click)="seeDetails(row.name)"
                             matTooltip="Ver detalles"><mat-icon
                                 class="material-icons-outlined see-icon">visibility</mat-icon></button>
@@ -88,7 +114,8 @@
                 </tr>
             </table>
 
-            <mat-paginator [pageSizeOptions]="[8, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[8, 10, 25, 100]" aria-label="Select page of users"
+                showFirstLastButtons></mat-paginator>
         </div>
     </div>
 </div>

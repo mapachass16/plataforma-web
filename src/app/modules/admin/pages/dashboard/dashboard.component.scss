@@ -87,10 +87,23 @@
         .delete-icon {
             color: red;
         }
+
+        .on-icon {
+            color: #05840f;
+        }
+
+        .off-icon {
+            color: red;
+        }
     }
 
     .mat-mdc-form-field {
         font-size: 14px;
         width: 100%;
+    }
+
+    mat-paginator {
+        flex-shrink: 0;
+        /* Evita que el paginador se reduzca */
     }
 }
