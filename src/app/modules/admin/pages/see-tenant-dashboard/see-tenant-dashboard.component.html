@@ -1,7 +1,6 @@
 <div class="body">
     <div class="title">Familia López</div>
     <div class="subtitle">Usuarios</div>
-
     <div class="table-div">
         <div class="filter-row">
             <mat-form-field class="filter" appearance="outline">
@@ -51,8 +50,123 @@
                 </tr>
             </table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"
+            <mat-paginator #usersPaginator [pageSize]="5" aria-label="Select page of users"
                 showFirstLastButtons></mat-paginator>
         </div>
 
     </div>
+
+    <div class="subtitle">Adultos Mayores</div>
+    <div class="table-div">
+        <div class="filter-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Filtro</mat-label>
+                <input matInput (keyup)="applyFilterSeniorCitizens($event)" placeholder="Buscar" #input>
+            </mat-form-field>
+        </div>
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceSeniorCitizens" matSort>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+                </ng-container>
+
+                <!-- Gender Column -->
+                <ng-container matColumnDef="gender">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Género </th>
+                    <td mat-cell *matCellDef="let row"> {{row.gender}} </td>
+                </ng-container>
+
+                <!-- Age Column -->
+                <ng-container matColumnDef="age">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Edad </th>
+                    <td mat-cell *matCellDef="let row"> {{row.age}} </td>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                    <td mat-cell *matCellDef="let row"><button mat-button matTooltip="Ver detalles"><mat-icon
+                                class="material-icons-outlined see-icon">edit</mat-icon></button>
+                        <button mat-button matTooltip="Editar"><mat-icon
+                                class="material-icons-outlined delete-icon ">delete</mat-icon></button>
+                    </td>
+
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedSeniorCitizensColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedSeniorCitizensColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No hay resultados "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator #seniorCitizensPaginator [pageSize]="5" aria-label="Select page of users"
+                showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+
+    <div class="subtitle">Dispositivos IoT</div>
+    <div class="table-div">
+        <div class="filter-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Filtro</mat-label>
+                <input matInput (keyup)="applyFilterDevicesIoT($event)" placeholder="Buscar" #input>
+            </mat-form-field>
+        </div>
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceDevicesIoT" matSort>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-icon *ngIf="row.status === 'On'" class="on-icon">radio_button_checked</mat-icon>
+                        <mat-icon *ngIf="row.status === 'Off'" class="off-icon">radio_button_checked</mat-icon>
+                        <mat-icon *ngIf="row.status === 'Suspended'"
+                            class="suspended-icon">radio_button_checked</mat-icon>
+                    </td>
+                </ng-container>
+
+                <!-- Serial ID Column -->
+                <ng-container matColumnDef="serialID">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Serial ID </th>
+                    <td mat-cell *matCellDef="let row"> {{row.serialID}} </td>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                    <td mat-cell *matCellDef="let row"><button mat-button matTooltip="Ver detalles"><mat-icon
+                                class="material-icons-outlined see-icon">edit</mat-icon></button>
+                        <button mat-button matTooltip="Editar"><mat-icon
+                                class="material-icons-outlined delete-icon ">delete</mat-icon></button>
+                    </td>
+
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedDevicesIoTColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedDevicesIoTColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No hay resultados "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator #devicesIoTPaginator [pageSize]="5" aria-label="Select page of users"
+                showFirstLastButtons></mat-paginator>
+        </div>
+
+    </div>
+</div>
