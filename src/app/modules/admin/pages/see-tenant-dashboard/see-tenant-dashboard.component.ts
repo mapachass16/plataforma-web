@@ -85,6 +85,28 @@ const DEVICESIOT = [
   }
 ];
 
+const MEDICALDEVICES = [
+  {
+    type: "Pulsera",
+    status: "On",
+    lastMeasurement: "150",
+    lastMeasurementDate: new Date()
+  },
+  {
+    type: "Glucometro",
+    status: "Off",
+    lastMeasurement: "20/10",
+    lastMeasurementDate: new Date()
+  },
+  {
+    type: "Collar",
+    status: "Suspended",
+    lastMeasurement: "210",
+    lastMeasurementDate: new Date()
+  },
+
+];
+
 @Component({
   selector: 'app-see-tenant-dashboard',
   standalone: true,
@@ -103,6 +125,9 @@ export class SeeTenantDashboardComponent implements AfterViewInit {
   displayedDevicesIoTColumns: string[] = ['name', 'status', 'serialID', 'actions'];
   dataSourceDevicesIoT: MatTableDataSource<any>;
 
+  displayedMedicalDevicesColumns: string[] = ['type', 'status', 'lastMeasurement', 'lastMeasurementDate', 'actions'];
+  dataSourceMedicalDevices: MatTableDataSource<any>;
+
   @ViewChild('usersPaginator') usersPaginator: MatPaginator;
   @ViewChild('usersSort') usersSort: MatSort;
 
@@ -112,13 +137,16 @@ export class SeeTenantDashboardComponent implements AfterViewInit {
   @ViewChild('devicesIoTPaginator') devicesIoTPaginator: MatPaginator;
   @ViewChild('devicesIoTSort') devicesIoTSort: MatSort;
 
+  @ViewChild('medicalDevicesPaginator') medicalDevicesPaginator: MatPaginator;
+  @ViewChild('medicalDevicesSort') medicalDevicesSort: MatSort;
+
   constructor(
-    private _router: Router,
     public _MatPaginatorIntl: MatPaginatorIntl,
   ) {
     this.dataSourceUsers = new MatTableDataSource(USERS);
     this.dataSourceSeniorCitizens = new MatTableDataSource(SENIORCITIZENS);
     this.dataSourceDevicesIoT = new MatTableDataSource(DEVICESIOT);
+    this.dataSourceMedicalDevices = new MatTableDataSource(MEDICALDEVICES);
   }
 
   ngAfterViewInit() {
@@ -131,9 +159,10 @@ export class SeeTenantDashboardComponent implements AfterViewInit {
     this.dataSourceDevicesIoT.paginator = this.devicesIoTPaginator;
     this.dataSourceDevicesIoT.sort = this.devicesIoTSort;
 
+    this.dataSourceMedicalDevices.paginator = this.medicalDevicesPaginator;
+    this.dataSourceMedicalDevices.sort = this.medicalDevicesSort;
+
     this.usersPaginator._intl.itemsPerPageLabel = 'Datos por página';
-
-
   }
 
 
@@ -161,6 +190,15 @@ export class SeeTenantDashboardComponent implements AfterViewInit {
 
     if (this.dataSourceDevicesIoT.paginator) {
       this.dataSourceDevicesIoT.paginator.firstPage();
+    }
+  }
+
+  applyFilterMedicalDevices(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceMedicalDevices.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSourceMedicalDevices.paginator) {
+      this.dataSourceMedicalDevices.paginator.firstPage();
     }
   }
 }
