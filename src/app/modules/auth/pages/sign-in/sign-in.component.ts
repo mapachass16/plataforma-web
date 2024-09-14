@@ -9,8 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
-import { HeroService } from '../../../../services/hero.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
@@ -34,7 +32,6 @@ export class SignInComponent implements OnInit {
   constructor(
     private _router: Router,
     private _supabaseService: SupabaseService,
-    private _heroService: HeroService,
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -43,28 +40,34 @@ export class SignInComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.heroes = this._heroService.getHeroes()
-    console.log(this.heroes)
-    await this.fetchDeviceUsers();
+    //await this.fetchDeviceUsers();
   }
 
-  async fetchDeviceUsers() {
+  /*async fetchDeviceUsers() {
     try {
       const response = await this._supabaseService.getDeviceUsers();
       if (response.data) {
-        this.deviceUsers = response.data;  // Asegúrate de que no haya cambios continuos
+        this.deviceUsers = response.data;
       }
       console.log('Device users:', this.deviceUsers);
     } catch (error) {
       console.error('Error fetching device users:', error);
     }
-  }
+  }*/
 
-  onSubmit() {
+  async onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-      //this.fetchDeviceUsers()
-      this._router.navigate(['/admin/dashboard']);
+      try {
+        const { user, error } = await this._supabaseService.signIn(this.loginForm.value.email, this.loginForm.value.password);
+
+        if (error) {
+          window.alert("Credenciales incorrectas");
+        } else {
+          this._router.navigate(['/admin/dashboard']);
+        }
+      } catch (e) {
+        window.alert("Ocurrió un error inesperado. Inténtalo de nuevo más tarde.");
+      }
     }
   }
 

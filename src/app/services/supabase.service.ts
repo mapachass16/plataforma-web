@@ -1,6 +1,13 @@
 import { inject, Injectable, NgZone } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import {
+  AuthChangeEvent,
+  AuthSession,
+  createClient,
+  Session,
+  SupabaseClient,
+  User,
+} from '@supabase/supabase-js'
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +22,22 @@ export class SupabaseService {
     );
   }
 
-  getDeviceUsers() {
-    return this._supabase.from('device_users').select('*');
+  //Users
+  async signIn(email: string, password: string): Promise<{ user: any; error: any }> {
+    const { data, error } = await this._supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      return { user: null, error };
+    }
+    return { user: data.user, error: null };
+  }
+
+
+  //Tenants
+  getTenants() {
+    return this._supabase.rpc("get_tenants");
   }
 }

@@ -12,6 +12,7 @@ import { DialogCreateTenantComponent } from '../../components/dialog-create-tena
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { SupabaseService } from '../../../../services/supabase.service';
 
 
 const NAMES = [
@@ -68,6 +69,7 @@ export class DashboardComponent implements AfterViewInit {
   monitored: number = 20;
   devices: number = 10;
   readonly dialog = inject(MatDialog);
+  tenants: any[]
 
   displayedColumns: string[] = ['id', 'account', 'owner', 'users', 'devices', 'deviceIoT', 'status', 'actions'];
   dataSource: MatTableDataSource<any>;
@@ -77,10 +79,15 @@ export class DashboardComponent implements AfterViewInit {
 
   constructor(
     public _MatPaginatorIntl: MatPaginatorIntl,
-    private _router: Router
+    private _router: Router,
+    private _supabaseService: SupabaseService
   ) {
     const users = Array.from({ length: 10 }, (_, k) => createNewUser(k + 1));
     this.dataSource = new MatTableDataSource(users);
+  }
+
+  async ngOnInit() {
+    await this.getTenants()
   }
 
   ngAfterViewInit() {
@@ -97,6 +104,24 @@ export class DashboardComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  async getTenants() {
+    try {
+      const { data, error } = await this._supabaseService.getTenants();
+
+      if (error) {
+        console.error("Error al obtener los tenants:", error.message);
+        return;
+      }
+
+      console.log("Tenants obtenidos:", data);
+
+    } catch (e) {
+      console.error("Ocurrió un error inesperado:", e);
+
+    }
+  }
+
 
   public seeDetails(id: string) {
     this._router.navigate(['/admin/see-tenant-dashboard', id]);

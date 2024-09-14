@@ -43,8 +43,8 @@ export class SignUpComponent {
   }
 
   onSubmit() {
-    if (this.signUpForm.valid) {
-      console.log(this.signUpForm.value);
+    if (this.signUpForm.valid && (this.family || this.company)) {
+      console.log(this.signUpForm.value, this.family, this.company);
       this._router.navigate(['/admin/sign-in']);
     }
   }

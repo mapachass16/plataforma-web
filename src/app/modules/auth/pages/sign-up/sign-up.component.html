@@ -83,7 +83,8 @@
                 ¿Ya tiene cuenta? <span (click)="signIn()">Entre aquí</span>
             </div>
 
-            <button mat-raised-button class="submit-btn" type=" submit" [disabled]="signUpForm.invalid">Crear
+            <button mat-raised-button class="submit-btn" type=" submit"
+                [disabled]="signUpForm.invalid ||(family === false && company==false)">Crear
                 cuenta</button>
         </form>
     </mat-card>
