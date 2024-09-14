@@ -24,10 +24,10 @@
                     <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
             </mat-form-field>
+
             <div class="row password">
                 <div class="column session-started">
-                    <mat-checkbox>Mantener la sesión
-                        activa</mat-checkbox>
+                    <mat-checkbox>Mantener la sesión activa</mat-checkbox>
                 </div>
                 <div class="column forget-password">¿Olvidaste la contraseña?</div>
             </div>
@@ -35,7 +35,8 @@
                 ¿No estás registrado? <span (click)="createAccount()">Crea una cuenta</span>
             </div>
 
-            <button mat-raised-button class="submit-btn" type=" submit" [disabled]="loginForm.invalid">Entrar</button>
+            <button mat-raised-button class="submit-btn" type="submit" [disabled]="loginForm.invalid">Entrar</button>
         </form>
+
     </mat-card>
 </div>
