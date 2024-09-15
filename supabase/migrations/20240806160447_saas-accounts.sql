@@ -779,3 +779,28 @@ END;
 $$;
 
 grant execute on function public.remove_tenant_member(uuid, uuid) to authenticated;
+
+create or replace function public.get_all_tenants()
+    returns json
+    security invoker
+    language sql
+as
+$$
+select coalesce(json_agg(
+                        json_build_object(
+                                'tenant_id', wu.tenant_id,
+                                'tenant_role', wu.tenant_role,
+                                'is_primary_owner', a.primary_owner_user_id = auth.uid(),
+                                'name', a.name,
+                                'slug', a.slug,
+                                'personal_tenant', a.personal_tenant,
+                                'created_at', a.created_at,
+                                'updated_at', a.updated_at
+                            )
+                    ), '[]'::json)
+from saas.tenant_user wu
+         join saas.tenants a on a.id = wu.tenant_id
+where auth.role() in ('service_role')
+$$;
+
+grant execute on function public.get_all_tenants() to service_role;
