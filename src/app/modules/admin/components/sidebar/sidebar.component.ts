@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { SupabaseService } from '../../../../services/supabase.service';
 
 
 @Component({
@@ -22,11 +23,18 @@ import { Router } from '@angular/router';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  email: any;
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private _supabaseService: SupabaseService
   ) {
 
+  }
+
+  async ngOnInit() {
+    const user = await this._supabaseService.getUserSession();
+    this.email = user?.data?.user?.email;
   }
 
 

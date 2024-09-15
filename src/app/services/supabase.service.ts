@@ -32,12 +32,26 @@ export class SupabaseService {
     if (error) {
       return { user: null, error };
     }
-    return { user: data.user, error: null };
+    return { user: data.session, error: null };
   }
 
 
-  //Tenants
+  //All Tenants
+  getAllTenants() {
+    return this._supabase.rpc("get_all_tenants");
+  }
+
+  //User Tenants
   getTenants() {
     return this._supabase.rpc("get_tenants");
+  }
+
+  //Get Users
+  getUserSession() {
+    return this._supabase.auth.getUser()
+  }
+
+  getTenantMembers(id: any) {
+    return this._supabase.rpc("get_tenant_members", { tenant_id: id });
   }
 }

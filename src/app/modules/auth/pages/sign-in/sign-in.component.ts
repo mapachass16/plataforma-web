@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./sign-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   hide = true;
   loginForm: FormGroup;
   deviceUsers: any;
@@ -39,27 +39,10 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  async ngOnInit() {
-    //await this.fetchDeviceUsers();
-  }
-
-  /*async fetchDeviceUsers() {
-    try {
-      const response = await this._supabaseService.getDeviceUsers();
-      if (response.data) {
-        this.deviceUsers = response.data;
-      }
-      console.log('Device users:', this.deviceUsers);
-    } catch (error) {
-      console.error('Error fetching device users:', error);
-    }
-  }*/
-
   async onSubmit() {
     if (this.loginForm.valid) {
       try {
         const { user, error } = await this._supabaseService.signIn(this.loginForm.value.email, this.loginForm.value.password);
-
         if (error) {
           window.alert("Credenciales incorrectas");
         } else {

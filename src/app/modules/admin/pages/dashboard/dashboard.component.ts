@@ -11,8 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateTenantComponent } from '../../components/dialog-create-tenant/dialog-create-tenant.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SupabaseService } from '../../../../services/supabase.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 const NAMES = [
@@ -64,12 +65,15 @@ const OPTIONS: string[] = [
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements AfterViewInit {
-  accounts: number = 50;
+  accounts: number;
   users: number = 30;
   monitored: number = 20;
   devices: number = 10;
-  readonly dialog = inject(MatDialog);
-  tenants: any[]
+  dialog = inject(MatDialog);
+  tenants: any[];
+  id: any;
+  user: any;
+
 
   displayedColumns: string[] = ['id', 'account', 'owner', 'users', 'devices', 'deviceIoT', 'status', 'actions'];
   dataSource: MatTableDataSource<any>;
@@ -80,21 +84,36 @@ export class DashboardComponent implements AfterViewInit {
   constructor(
     public _MatPaginatorIntl: MatPaginatorIntl,
     private _router: Router,
-    private _supabaseService: SupabaseService
+    private _supabaseService: SupabaseService,
+    private _route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {
     const users = Array.from({ length: 10 }, (_, k) => createNewUser(k + 1));
     this.dataSource = new MatTableDataSource(users);
   }
 
   async ngOnInit() {
-    await this.getTenants()
+    this.user = await this._supabaseService.getUserSession();
+    if (this.user.data.user.role === "service_role") {
+      await this.getAllTenants();
+    } else {
+      await this.getUserTenants();
+    }
+    this.accounts = this.tenants.length;
+    this.cdr.detectChanges();
+    this.getTenantMembers(this.tenants);
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.paginator._intl.itemsPerPageLabel = "Cuentas por página";
+    if (this.paginator && this.sort) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      if (this.paginator._intl) {
+        this.paginator._intl.itemsPerPageLabel = "Cuentas por página";
+      }
+    }
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -105,30 +124,65 @@ export class DashboardComponent implements AfterViewInit {
     }
   }
 
-  async getTenants() {
+  async getAllTenants() {
+    try {
+      const { data, error } = await this._supabaseService.getAllTenants();
+
+      if (error) {
+        console.error("Error al obtener todos los tenants:", error.message);
+        return;
+      }
+      this.tenants = data;
+    } catch (e) {
+      console.error("Ocurrió un error inesperado:", e);
+    }
+  }
+
+  async getUserTenants() {
     try {
       const { data, error } = await this._supabaseService.getTenants();
 
       if (error) {
-        console.error("Error al obtener los tenants:", error.message);
+        console.error("Error al obtener los tenants del usuario:", error.message);
         return;
       }
-
-      console.log("Tenants obtenidos:", data);
-
+      this.tenants = data;
     } catch (e) {
       console.error("Ocurrió un error inesperado:", e);
-
     }
   }
+
+  async getTenantMembers(tenants: any[]) {
+    /*for (const tenant of tenants) {
+      console.log(tenant.tenant_id);
+      const members = await this._supabaseService.getTenantMembers(tenant.tenant_id);
+      console.log(members);
+    }*/
+
+    try {
+      const tenant = tenants[0]
+      const { data, error } = await this._supabaseService.getTenantMembers(tenant.tenant_id);
+
+      if (error) {
+        console.error("Error al obtener", error.message);
+        return;
+      }
+      this.tenants = data;
+      console.log(this.tenants)
+    } catch (e) {
+      console.error("Ocurrió un error inesperado:", e);
+    }
+  }
+
 
 
   public seeDetails(id: string) {
     this._router.navigate(['/admin/see-tenant-dashboard', id]);
   }
 
-  public deleteTenant(name: string) {
-    console.log(name)
+  public deleteTenant(id: string) {
+    const filteredData = this.dataSource.data.filter((element: any) => element.id !== id);
+    this.dataSource.data = filteredData;
   }
 
   public createTenant() {
@@ -137,7 +191,6 @@ export class DashboardComponent implements AfterViewInit {
       height: 'auto',
     });
   }
-
 }
 
 /** Builds and returns a new User. */
