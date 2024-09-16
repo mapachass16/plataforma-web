@@ -35,23 +35,39 @@ export class SupabaseService {
     return { user: data.session, error: null };
   }
 
-
-  //All Tenants
+  //All tenants
   getAllTenants() {
     return this._supabase.rpc("get_all_tenants");
   }
 
-  //User Tenants
+  //User tenants
   getTenants() {
     return this._supabase.rpc("get_tenants");
   }
 
-  //Get Users
+  //Get users
   getUserSession() {
     return this._supabase.auth.getUser()
   }
 
+  //Get all members of a tenant
   getTenantMembers(id: any) {
     return this._supabase.rpc("get_tenant_members", { tenant_id: id });
+  }
+
+  //Get a tenant's monitored people
+  getMonitoredPeople(tenant_id: any) {
+    return this._supabase
+      .from('device_users')
+      .select('*')
+      .eq('tenant_id', tenant_id);
+  }
+
+  //Get a tenant's monitored people
+  getIoTDevicesByTenant(tenant_id: any) {
+    return this._supabase
+      .from('iot_devices')
+      .select('*')
+      .eq('tenant_id', tenant_id);
   }
 }

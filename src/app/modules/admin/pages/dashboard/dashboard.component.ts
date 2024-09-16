@@ -66,14 +66,13 @@ const OPTIONS: string[] = [
 })
 export class DashboardComponent implements AfterViewInit {
   accounts: number;
-  users: number = 30;
-  monitored: number = 20;
-  devices: number = 10;
+  users: number;
+  monitored: number;
+  devicesIoT: number;
   dialog = inject(MatDialog);
   tenants: any[];
   id: any;
   user: any;
-
 
   displayedColumns: string[] = ['id', 'account', 'owner', 'users', 'devices', 'deviceIoT', 'status', 'actions'];
   dataSource: MatTableDataSource<any>;
@@ -85,7 +84,6 @@ export class DashboardComponent implements AfterViewInit {
     public _MatPaginatorIntl: MatPaginatorIntl,
     private _router: Router,
     private _supabaseService: SupabaseService,
-    private _route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {
     const users = Array.from({ length: 10 }, (_, k) => createNewUser(k + 1));
@@ -100,8 +98,10 @@ export class DashboardComponent implements AfterViewInit {
       await this.getUserTenants();
     }
     this.accounts = this.tenants.length;
-    this.cdr.detectChanges();
     this.getTenantMembers(this.tenants);
+    this.getMonitoredPeople(this.tenants);
+    this.getIoTDevicesByTenant(this.tenants);
+    this.cdr.detectChanges();
   }
 
   ngAfterViewInit() {
@@ -153,28 +153,102 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   async getTenantMembers(tenants: any[]) {
-    /*for (const tenant of tenants) {
-      console.log(tenant.tenant_id);
-      const members = await this._supabaseService.getTenantMembers(tenant.tenant_id);
-      console.log(members);
-    }*/
+    if (this.user.data.user.role === "service_role") {
+      /*for (const tenant of tenants) {
+            console.log(tenant.tenant_id);
+            const members = await this._supabaseService.getTenantMembers(tenant.tenant_id);
+            console.log(members);
+          }*/
+    }
+    else {
+      try {
+        const tenantId = this.user.data.user.id;
+        const { data, error } = await this._supabaseService.getTenantMembers(tenantId);
 
-    try {
-      const tenant = tenants[0]
-      const { data, error } = await this._supabaseService.getTenantMembers(tenant.tenant_id);
-
-      if (error) {
-        console.error("Error al obtener", error.message);
-        return;
+        if (error) {
+          console.error('Error al obtener los miembros del tenant:', error.message);
+          throw error;
+        }
+        this.users = data.length;
+        this.cdr.detectChanges();
+      } catch (e) {
+        console.error('Error en la función getTenantMembers:', e);
+        throw e;
       }
-      this.tenants = data;
-      console.log(this.tenants)
-    } catch (e) {
-      console.error("Ocurrió un error inesperado:", e);
+    }
+
+  }
+
+  async getMonitoredPeople(tenants: any) {
+    if (this.user.data.user.role === "service_role") {
+      this.monitored = 0;
+
+      const promises = tenants.map(async (tenant: any) => {
+        const { data, error } = await this._supabaseService.getMonitoredPeople(tenant.tenant_id);
+
+        if (error) {
+          console.error(`Error al obtener los usuarios monitorizados para tenant ${tenant.tenant_id}:`, error);
+          return 0;
+        }
+        return data?.length ?? 0;
+      });
+
+      const results = await Promise.all(promises);
+      this.monitored = results.reduce((acc, curr) => acc + curr, 0);
+      this.cdr.detectChanges();
+    } else {
+      try {
+        const tenantId = this.user.data.user.id;
+        const { data, error } = await this._supabaseService.getMonitoredPeople(tenantId);
+
+        if (error) {
+          console.error('Error al obtener los usuarios monitorizados:', error.message);
+          throw error;
+        }
+        this.monitored = data.length;
+        this.cdr.detectChanges();
+      } catch (e) {
+        console.error('Error en la función getMonitoredPeople:', e);
+        throw e;
+      }
     }
   }
 
+  async getIoTDevicesByTenant(tenants: any) {
+    if (this.user.data.user.role === "service_role") {
+      this.devicesIoT = 0;
 
+      const promises = tenants.map(async (tenant: any) => {
+        const { data, error } = await this._supabaseService.getIoTDevicesByTenant(tenant.tenant_id);
+
+        if (error) {
+          console.error(`Error al obtener los dispositivos IoT para cada tenant ${tenant.tenant_id}:`, error);
+          return 0;
+        }
+        return data?.length ?? 0;
+      });
+
+      const results = await Promise.all(promises);
+      this.devicesIoT = results.reduce((acc, curr) => acc + curr, 0);
+
+      this.cdr.detectChanges();
+    } else {
+      try {
+        const tenantId = this.user.data.user.id;
+        const { data, error } = await this._supabaseService.getIoTDevicesByTenant(tenantId);
+
+        if (error) {
+          console.error('Error al obtener los dispositivos IoT del tenant:', error.message);
+          throw error;
+        }
+        this.devicesIoT = data.length;
+        this.cdr.detectChanges();
+      } catch (e) {
+        console.error('Error en la función getIoTDevicesByTenant:', e);
+        throw e;
+      }
+    }
+  }
 
   public seeDetails(id: string) {
     this._router.navigate(['/admin/see-tenant-dashboard', id]);
