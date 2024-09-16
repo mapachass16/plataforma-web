@@ -63,11 +63,13 @@ export class SupabaseService {
       .eq('tenant_id', tenant_id);
   }
 
-  //Get a tenant's monitored people
+  //Get a tenant's devices
   getIoTDevicesByTenant(tenant_id: any) {
     return this._supabase
       .from('iot_devices')
       .select('*')
       .eq('tenant_id', tenant_id);
   }
+
+
 }

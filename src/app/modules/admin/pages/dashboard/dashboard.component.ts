@@ -124,7 +124,7 @@ export class DashboardComponent implements AfterViewInit {
     }
   }
 
-  async getAllTenants() {
+  private async getAllTenants() {
     try {
       const { data, error } = await this._supabaseService.getAllTenants();
 
@@ -133,12 +133,14 @@ export class DashboardComponent implements AfterViewInit {
         return;
       }
       this.tenants = data;
+      this.createDataForTable(this.tenants);
+      console.log(this.tenants)
     } catch (e) {
       console.error("Ocurrió un error inesperado:", e);
     }
   }
 
-  async getUserTenants() {
+  private async getUserTenants() {
     try {
       const { data, error } = await this._supabaseService.getTenants();
 
@@ -147,12 +149,13 @@ export class DashboardComponent implements AfterViewInit {
         return;
       }
       this.tenants = data;
+      console.log(this.tenants)
     } catch (e) {
       console.error("Ocurrió un error inesperado:", e);
     }
   }
 
-  async getTenantMembers(tenants: any[]) {
+  private async getTenantMembers(tenants: any[]) {
     if (this.user.data.user.role === "service_role") {
       /*for (const tenant of tenants) {
             console.log(tenant.tenant_id);
@@ -179,7 +182,7 @@ export class DashboardComponent implements AfterViewInit {
 
   }
 
-  async getMonitoredPeople(tenants: any) {
+  private async getMonitoredPeople(tenants: any) {
     if (this.user.data.user.role === "service_role") {
       this.monitored = 0;
 
@@ -214,7 +217,7 @@ export class DashboardComponent implements AfterViewInit {
     }
   }
 
-  async getIoTDevicesByTenant(tenants: any) {
+  private async getIoTDevicesByTenant(tenants: any) {
     if (this.user.data.user.role === "service_role") {
       this.devicesIoT = 0;
 
@@ -265,7 +268,30 @@ export class DashboardComponent implements AfterViewInit {
       height: 'auto',
     });
   }
+
+  private async createDataForTable(tenants: any) {
+    const promises = tenants.map(async (tenant: any) => {
+      const id = tenant.tenant_id;
+      const account = tenant.name;
+      const owner = await this._supabaseService.getTenantMembers(id);
+      console.log(owner);
+      /*const { data, error } = await this._supabaseService.getIoTDevicesByTenant(tenant.tenant_id);
+
+      if (error) {
+        console.error(`Error al obtener los dispositivos IoT para cada tenant ${tenant.tenant_id}:`, error);
+        return 0;
+      }
+      return data?.length ?? 0;*/
+    });
+
+    //const results = await Promise.all(promises);
+    //this.devicesIoT = results.reduce((acc, curr) => acc + curr, 0);
+
+    //this.cdr.detectChanges();
+  }
 }
+
+
 
 /** Builds and returns a new User. */
 function createNewUser(id: number): any {
