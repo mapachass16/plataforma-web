@@ -55,6 +55,11 @@ export class SupabaseService {
     return this._supabase.rpc("get_tenant_members", { tenant_id: id });
   }
 
+  //Get all members of all tenants
+  getTenantMembersService(id: any) {
+    return this._supabase.rpc("get_tenant_members_service", { tenant_id: id });
+  }
+
   //Get a tenant's monitored people
   getMonitoredPeople(tenant_id: any) {
     return this._supabase
