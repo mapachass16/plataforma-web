@@ -56,7 +56,9 @@ BEGIN
                            json_build_object(
                                    'user_id', wu.user_id,
                                    'tenant_role', wu.tenant_role,
-                                   'name', p.name,
+                                   'firstname', pro.first_name,
+                                   'lastname', pro.last_name,
+                                   'username', p.name,
                                    'email', u.email,
                                    'is_primary_owner', a.primary_owner_user_id = wu.user_id
                                )
@@ -65,6 +67,7 @@ BEGIN
                      join saas.tenants a on a.id = wu.tenant_id
                      join saas.tenants p on p.primary_owner_user_id = wu.user_id and p.personal_tenant = true
                      join auth.users u on u.id = wu.user_id
+                     join saas.profiles pro on pro.id = wu.user_id
             where wu.tenant_id = get_tenant_members_service.tenant_id
             limit coalesce(get_tenant_members_service.results_limit, 50) offset coalesce(get_tenant_members_service.results_offset, 0));
 END;

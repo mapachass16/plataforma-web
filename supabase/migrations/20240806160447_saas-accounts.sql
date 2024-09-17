@@ -554,7 +554,9 @@ select coalesce(json_agg(
                                 'tenant_id', wu.tenant_id,
                                 'tenant_role', wu.tenant_role,
                                 'is_primary_owner', a.primary_owner_user_id = auth.uid(),
-                                'name', a.name,
+                                'username', a.name,                                                                
+                                'firstname', pro.first_name,
+                                'lastname', pro.last_name,
                                 'slug', a.slug,
                                 'personal_tenant', a.personal_tenant,
                                 'created_at', a.created_at,
@@ -562,7 +564,8 @@ select coalesce(json_agg(
                             )
                     ), '[]'::json)
 from saas.tenant_user wu
-         join saas.tenants a on a.id = wu.tenant_id
+         join saas.tenants a on a.id = wu.tenant_id               
+         join saas.profiles pro on pro.id = wu.user_id
 where wu.user_id = auth.uid();
 $$;
 
@@ -786,12 +789,15 @@ create or replace function public.get_all_tenants()
     language sql
 as
 $$
+
 select coalesce(json_agg(
                         json_build_object(
                                 'tenant_id', wu.tenant_id,
                                 'tenant_role', wu.tenant_role,
                                 'is_primary_owner', a.primary_owner_user_id = auth.uid(),
-                                'name', a.name,
+                                'username', a.name,                                                                
+                                'firstname', pro.first_name,
+                                'lastname', pro.last_name,
                                 'slug', a.slug,
                                 'personal_tenant', a.personal_tenant,
                                 'created_at', a.created_at,
@@ -799,7 +805,8 @@ select coalesce(json_agg(
                             )
                     ), '[]'::json)
 from saas.tenant_user wu
-         join saas.tenants a on a.id = wu.tenant_id
+         join saas.tenants a on a.id = wu.tenant_id                    
+         join saas.profiles pro on pro.id = wu.user_id
 where auth.role() in ('service_role')
 $$;
 
