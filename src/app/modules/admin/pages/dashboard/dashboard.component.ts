@@ -16,45 +16,9 @@ import { SupabaseService } from '../../../../services/supabase.service';
 import { ChangeDetectorRef } from '@angular/core';
 
 
-const NAMES = [
-  'Familia Pérez',
-  'Familia Gómez',
-  'Familia Rodríguez',
-  'Familia Fernández',
-  'Familia López',
-  'Familia Martínez',
-  'Familia González',
-  'Familia Sánchez',
-  'Familia Díaz',
-  'Familia Castro'
-];
-
-const OWNERS: string[] = [
-  'Maia S',
-  'Asher G',
-  'Olivia D',
-  'Atticus T',
-  'Amelia Q',
-  'Jack R',
-  'Charlotte V',
-  'Theodore H',
-  'Isla O',
-  'Oliver A',
-  'Isabella P',
-  'Jasper R',
-  'Cora N',
-  'Levi L',
-  'Violet P',
-  'Arthur S',
-  'Mia A',
-  'Thomas J',
-  'Elizabeth K',
-];
-
 const OPTIONS: string[] = [
   'On', 'Off'
 ];
-
 
 @Component({
   selector: 'app-dashboard',
@@ -64,13 +28,14 @@ const OPTIONS: string[] = [
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements AfterViewInit {
+export class DashboardComponent {
   accounts: number;
   users: number;
   monitored: number;
   devicesIoT: number;
   dialog = inject(MatDialog);
   tenants: any[];
+  dataTable: any[] = [];
   id: any;
   user: any;
 
@@ -86,8 +51,8 @@ export class DashboardComponent implements AfterViewInit {
     private _supabaseService: SupabaseService,
     private cdr: ChangeDetectorRef
   ) {
-    const users = Array.from({ length: 10 }, (_, k) => createNewUser(k + 1));
-    this.dataSource = new MatTableDataSource(users);
+    //const users = Array.from({ length: 10 }, (_, k) => createNewUser(k + 1));
+    //this.dataSource = new MatTableDataSource(users);
   }
 
   async ngOnInit() {
@@ -104,17 +69,6 @@ export class DashboardComponent implements AfterViewInit {
     this.createDataForTable(this.tenants)
     this.cdr.detectChanges();
   }
-
-  ngAfterViewInit() {
-    if (this.paginator && this.sort) {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      if (this.paginator._intl) {
-        this.paginator._intl.itemsPerPageLabel = "Cuentas por página";
-      }
-    }
-  }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -280,52 +234,49 @@ export class DashboardComponent implements AfterViewInit {
   private async createDataForTable(tenants: any) {
     const promises = tenants.map(async (tenant: any) => {
       const id = tenant.tenant_id;
-      const account = tenant.name;
+      const account = tenant.slug;
+      const devicesIoT = (await this._supabaseService.getIoTDevicesByTenant(id)).data;
+      const devicesIoTAmount = devicesIoT?.length ?? 0;
+      const devicesIotStatus = OPTIONS[Math.floor(Math.random() * OPTIONS.length)]
+      const status = OPTIONS[Math.floor(Math.random() * OPTIONS.length)]
       if (this.user.data.user.role === "service_role") {
         const users = await (await this._supabaseService.getTenantMembersService(id)).data;
-        //console.log(users)
         const usersAmount = users.length;
         const ownerData = users.filter((item: any) => item.tenant_role === 'owner');
-        console.log(ownerData[0]);
+        const ownerName = ownerData[0].firstname + ' ' + ownerData[0].lastname;
+        const newTenant = {
+          id: id,
+          account: account,
+          owner: ownerName,
+          users: usersAmount,
+          devices: devicesIoTAmount,
+          deviceIoT: devicesIotStatus,
+          status: status
+        }
+        this.dataTable.push(newTenant);
+      } else {
+        const users = await (await this._supabaseService.getTenantMembers(id)).data;
+        const usersAmount = users.length;
+        const ownerData = users.filter((item: any) => item.tenant_role === 'owner');
+        const ownerName = ownerData[0].firstname + ' ' + ownerData[0].lastname;
+        const newTenant = {
+          id: id,
+          account: account,
+          owner: ownerName,
+          users: usersAmount,
+          devices: devicesIoTAmount,
+          deviceIoT: devicesIotStatus,
+          status: status
+        }
+        this.dataTable.push(newTenant);
       }
-
-
-      /*const { data, error } = await this._supabaseService.getIoTDevicesByTenant(tenant.tenant_id);
-
-      if (error) {
-        console.error(`Error al obtener los dispositivos IoT para cada tenant ${tenant.tenant_id}:`, error);
-        return 0;
-      }
-      return data?.length ?? 0;*/
     });
-
-    //const results = await Promise.all(promises);
-    //this.devicesIoT = results.reduce((acc, curr) => acc + curr, 0);
-
-    //this.cdr.detectChanges();
+    await Promise.all(promises);
+    this.dataSource = new MatTableDataSource(this.dataTable);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    if (this.paginator._intl) {
+      this.paginator._intl.itemsPerPageLabel = "Cuentas por página";
+    }
   }
 }
-
-
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): any {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))];
-
-  const owner =
-    OWNERS[Math.round(Math.random() * (OWNERS.length - 1))];
-
-  return {
-    id: id.toString(),
-    account: name,
-    owner: owner,
-    users: Math.floor(Math.random() * 10) + 1,
-    devices: Math.floor(Math.random() * 10) + 1,
-    deviceIoT: OPTIONS[Math.floor(Math.random() * OPTIONS.length)],
-    status: OPTIONS[Math.floor(Math.random() * OPTIONS.length)]
-  };
-
-}
-
-
