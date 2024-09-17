@@ -51,7 +51,6 @@ export class DialogCreateTenantComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      console.log(this.signUpForm.value); // Aquí obtienes los valores del formulario
       this._router.navigate(['/admin/sign-in']);
     }
   }

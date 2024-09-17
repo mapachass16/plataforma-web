@@ -11,13 +11,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateTenantComponent } from '../../components/dialog-create-tenant/dialog-create-tenant.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SupabaseService } from '../../../../services/supabase.service';
 import { ChangeDetectorRef } from '@angular/core';
 
 
 const OPTIONS: string[] = [
-  'On', 'Off'
+  'On', 'Off', 'Suspended'
 ];
 
 @Component({
@@ -50,10 +50,7 @@ export class DashboardComponent {
     private _router: Router,
     private _supabaseService: SupabaseService,
     private cdr: ChangeDetectorRef
-  ) {
-    //const users = Array.from({ length: 10 }, (_, k) => createNewUser(k + 1));
-    //this.dataSource = new MatTableDataSource(users);
-  }
+  ) { }
 
   async ngOnInit() {
     this.user = await this._supabaseService.getUserSession();

@@ -28,9 +28,7 @@ export class SidebarComponent {
   constructor(
     private _router: Router,
     private _supabaseService: SupabaseService
-  ) {
-
-  }
+  ) { }
 
   async ngOnInit() {
     const user = await this._supabaseService.getUserSession();

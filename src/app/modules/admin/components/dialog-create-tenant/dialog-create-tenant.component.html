@@ -3,7 +3,6 @@
         <div class="title">Crear cuenta</div>
         <div class="subtitle">Introduzca los credenciales para crear la cuenta</div>
         <div class="button-container">
-            <!-- Botón de Cuenta Familia -->
             <mat-card class="account-button" *ngIf="!family" (click)="changeTypeAccount('family')">
                 <mat-card-content>
                     <img src="../../../../assets/grandparents.png" alt="family" />
@@ -18,7 +17,6 @@
                 </mat-card-content>
             </mat-card>
 
-            <!-- Botón de Cuenta Empresa -->
             <mat-card class="account-button" *ngIf="!company" (click)="changeTypeAccount('company')">
                 <mat-card-content>
                     <img src="../../../../assets/company.png" alt="family" />

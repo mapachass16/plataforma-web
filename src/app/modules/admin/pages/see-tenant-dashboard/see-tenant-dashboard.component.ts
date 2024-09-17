@@ -12,35 +12,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { SupabaseService } from '../../../../services/supabase.service';
 
-
-const DEVICESIOT = [
-  {
-    name: "Cuarto 1",
-    status: "On",
-    serialID: "744564651"
-  },
-  {
-    name: "Sala",
-    status: "Off",
-    serialID: "456478415"
-  },
-  {
-    name: "Cocina",
-    status: "Suspended",
-    serialID: "759841235"
-  },
-  {
-    name: "Baño",
-    status: "On",
-    serialID: "984127836"
-  },
-  {
-    name: "Cuarto 2",
-    status: "On",
-    serialID: "671489657"
-  }
-];
-
 const MEDICALDEVICES = [
   {
     type: "Pulsera",
@@ -64,7 +35,7 @@ const MEDICALDEVICES = [
 ];
 
 const OPTIONS: string[] = [
-  'On', 'Off'
+  'On', 'Off', 'Suspended'
 ];
 
 @Component({

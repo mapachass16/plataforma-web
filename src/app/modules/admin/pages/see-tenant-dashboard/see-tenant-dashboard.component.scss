@@ -53,22 +53,16 @@
     }
 
     .link-btn {
-        //display: flex;
-        //flex-direction: column;
         height: 57px;
         align-items: center;
         justify-content: center;
         background-color: #bab9b9;
         border: 1px solid #bab9b9;
         border-radius: 8px;
-        //font-size: 16px;
         cursor: pointer;
-        //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        //transition: background-color 0.3s ease;
         color: white;
         font-family: "Plus Jakarta Sans", sans-serif;
         font-weight: 600;
-        //font-size: 50px;
 
         mat-icon {
             transform: rotate(135deg)
@@ -85,7 +79,6 @@
         width: 100%;
         border-collapse: collapse;
         overflow-x: auto;
-
     }
 
     th,
