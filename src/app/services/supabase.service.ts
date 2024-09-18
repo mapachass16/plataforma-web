@@ -76,5 +76,10 @@ export class SupabaseService {
       .eq('tenant_id', tenant_id);
   }
 
+  //Get all medical devices for a tenant
+  getMedicalDevicesByTenant(id: any) {
+    return this._supabase.rpc("get_medical_devices_by_tenant", { tenant_id: id });
+  }
+
 
 }
