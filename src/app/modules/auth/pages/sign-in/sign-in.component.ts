@@ -39,7 +39,10 @@ export class SignInComponent {
     });
   }
 
-  async onSubmit() {
+  /**
+   * Function with which the user's credentials are validated
+   */
+  public async onSubmit() {
     if (this.loginForm.valid) {
       try {
         const { user, error } = await this._supabaseService.signIn(this.loginForm.value.email, this.loginForm.value.password);
@@ -54,6 +57,9 @@ export class SignInComponent {
     }
   }
 
+  /**
+   * Function that redirects to the screen to create an account
+   */
   public createAccount() {
     this._router.navigate(['/auth/sign-up']);
   }

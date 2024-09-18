@@ -52,6 +52,9 @@ export class DashboardComponent {
     private cdr: ChangeDetectorRef
   ) { }
 
+  /**
+   * Function that brings information about tenants
+   */
   async ngOnInit() {
     this.user = await this._supabaseService.getUserSession();
     if (this.user.data.user.role === "service_role") {
@@ -67,7 +70,10 @@ export class DashboardComponent {
     this.cdr.detectChanges();
   }
 
-  applyFilter(event: Event) {
+  /**
+   * Function that allows the person to filter in the table and display the data related to the filter
+   */
+  public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -76,6 +82,9 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Function that returns all the tenants of the database
+   */
   private async getAllTenants() {
     try {
       const { data, error } = await this._supabaseService.getAllTenants();
@@ -90,6 +99,9 @@ export class DashboardComponent {
     }
   }
 
+  /**
+  * Function that returns the user's tenants
+  */
   private async getUserTenants() {
     try {
       const { data, error } = await this._supabaseService.getTenants();
@@ -104,6 +116,9 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Function that returns the members of the tenants
+   */
   private async getTenantMembers(tenants: any[]) {
     if (this.user.data.user.role === "service_role") {
       this.users = 0;
@@ -141,6 +156,9 @@ export class DashboardComponent {
 
   }
 
+  /**
+   * Function that returns the people who are being monitored in that tenant
+   */
   private async getMonitoredPeople(tenants: any) {
     if (this.user.data.user.role === "service_role") {
       this.monitored = 0;
@@ -176,6 +194,9 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Function that returns the IoT devices of the tenant or tenants
+   */
   private async getIoTDevicesByTenant(tenants: any) {
     if (this.user.data.user.role === "service_role") {
       this.devicesIoT = 0;
@@ -212,15 +233,24 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Function that redirects to view the information of a specific tenant
+   */
   public seeDetails(id: string) {
     this._router.navigate(['/admin/see-tenant-dashboard', id]);
   }
 
+  /**
+   * Function that removes a tenant from the table
+   */
   public deleteTenant(id: string) {
     const filteredData = this.dataSource.data.filter((element: any) => element.id !== id);
     this.dataSource.data = filteredData;
   }
 
+  /**
+   * Function that opens the dialog to create a tenant
+   */
   public createTenant() {
     this.dialog.open(DialogCreateTenantComponent, {
       width: '30%',
@@ -228,6 +258,9 @@ export class DashboardComponent {
     });
   }
 
+  /**
+   * Function that adds the data to display in the table
+   */
   private async createDataForTable(tenants: any) {
     const promises = tenants.map(async (tenant: any) => {
       const id = tenant.tenant_id;

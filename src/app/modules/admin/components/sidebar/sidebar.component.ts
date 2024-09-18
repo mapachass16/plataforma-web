@@ -30,12 +30,17 @@ export class SidebarComponent {
     private _supabaseService: SupabaseService
   ) { }
 
+  /**
+   * Function that brings the information of the logged in user
+   */
   async ngOnInit() {
     const user = await this._supabaseService.getUserSession();
     this.email = user?.data?.user?.email;
   }
 
-
+  /**
+   * Function that logs out and redirects to login
+   */
   public logout() {
     this._router.navigate(['/auth/sign-in']);
   }

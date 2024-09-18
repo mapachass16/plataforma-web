@@ -42,16 +42,26 @@ export class SignUpComponent {
     });
   }
 
-  onSubmit() {
+  /**
+   * Function that creates an account and redirects to the login screen
+   */
+  public onSubmit() {
     if (this.signUpForm.valid && (this.family || this.company)) {
-      this._router.navigate(['/admin/sign-in']);
+      this._router.navigate(['/auth/sign-in']);
     }
   }
 
+
+  /**
+   * Function that redirects to the login screen
+   */
   public signIn() {
     this._router.navigate(['/auth/sign-in']);
   }
 
+  /**
+  * Function that checks that the two passwords are the same
+  */
   public checkPassword() {
     const password = this.signUpForm.get('password')?.value;
     const password2 = this.signUpForm.get('password2')?.value;
@@ -66,7 +76,9 @@ export class SignUpComponent {
     }
   }
 
-
+  /**
+   * Function that changes the account type when the person click on the other account type
+   */
   public changeTypeAccount(type: string) {
     if (type === "family") {
       this.family = true;

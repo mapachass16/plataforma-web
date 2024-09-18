@@ -98,7 +98,9 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
     this.dataSourceMedicalDevices.sort = this.medicalDevicesSort;
   }
 
-
+  /**
+   * Function that allows the person to filter in the users table and display the data related to the filter
+   */
   applyFilterUsers(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceUsers.filter = filterValue.trim().toLowerCase();
@@ -108,6 +110,9 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
     }
   }
 
+  /**
+   * Function that allows the person to filter in the senior citizens table and display the data related to the filter
+   */
   applyFilterSeniorCitizens(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceSeniorCitizens.filter = filterValue.trim().toLowerCase();
@@ -117,6 +122,9 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
     }
   }
 
+  /**
+   * Function that allows the person to filter in the iot devices table and display the data related to the filter
+   */
   applyFilterDevicesIoT(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceDevicesIoT.filter = filterValue.trim().toLowerCase();
@@ -126,6 +134,9 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
     }
   }
 
+  /**
+   * Function that allows the person to filter in the medical devices table and display the data related to the filter
+   */
   applyFilterMedicalDevices(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceMedicalDevices.filter = filterValue.trim().toLowerCase();
@@ -135,7 +146,11 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
     }
   }
 
-  async getMembers(tenant_id: any, role: string) {
+
+  /**
+   * Function that gets the members of a tenant
+   */
+  private async getMembers(tenant_id: any, role: string) {
     try {
       if (role === "service_role") {
         const { data, error } = await this._supabaseService.getTenantMembersService(tenant_id);
@@ -177,7 +192,10 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
     }
   }
 
-  async getMonitored(tenant_id: any) {
+  /**
+   * Function that obtains the monitored data of a tenant
+   */
+  private async getMonitored(tenant_id: any) {
     try {
       const { data, error } = await this._supabaseService.getMonitoredPeople(tenant_id);
       if (error) {
@@ -202,7 +220,10 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
     }
   }
 
-  async getIoTDevices(tenant_id: any) {
+  /**
+   * Function that obtains the IoT Devices a of a tenant
+   */
+  private async getIoTDevices(tenant_id: any) {
     try {
       const { data, error } = await this._supabaseService.getIoTDevicesByTenant(tenant_id);
       if (error) {
