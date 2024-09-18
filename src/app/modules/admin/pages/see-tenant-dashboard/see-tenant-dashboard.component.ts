@@ -164,7 +164,7 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
           const newMember = {
             name: member.firstname + ' ' + member.lastname,
             email: member.email,
-            role: member.tenant_role,
+            role: (member.tenant_role == "owner") ? "Dueño" : "Miembro",
           };
           this.users.push(newMember);
         }
@@ -178,7 +178,7 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
           const newMember = {
             name: member.firstname + ' ' + member.lastname,
             email: member.email,
-            role: member.tenant_role,
+            role: (member.tenant_role == "owner") ? "Dueño" : "Miembro",
           };
           this.users.push(newMember);
         }
@@ -215,7 +215,7 @@ export class SeeTenantDashboardComponent implements AfterViewInit, OnInit {
       this.dataSourceSeniorCitizens = new MatTableDataSource(this.monitored);
       this.dataSourceSeniorCitizens.paginator = this.seniorCitizensPaginator;
       this.dataSourceSeniorCitizens.sort = this.seniorCitizensSort;
-      this.seniorCitizensPaginator._intl.itemsPerPageLabel = 'Monitoreados por página';
+      this.seniorCitizensPaginator._intl.itemsPerPageLabel = 'Personas por página';
 
     } catch (error: any) {
       console.error('Error en getMonitored:', error.message || error);

@@ -39,7 +39,7 @@ export class DashboardComponent {
   id: any;
   user: any;
 
-  displayedColumns: string[] = ['id', 'account', 'owner', 'users', 'devices', 'deviceIoT', 'status', 'actions'];
+  displayedColumns: string[] = ['owner', 'users', 'devices', 'deviceIoT', 'status', 'actions'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
