@@ -1,0 +1,42 @@
+<div class="row sign-in-row">
+    <mat-card class="sign-in-card" appearance="outlined">
+        <div class="title">Iniciar sesión</div>
+        <div class="subtitle">Introduzca su correo y contraseña para acceder a la plataforma</div>
+        <button class="google-login-btn">
+            <img src="../../../../assets/logoGoogle.png" alt="Google Logo" />
+            Iniciar con Google
+        </button>
+        <div class="divider-container">
+            <div class="line"></div>
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput type="email" formControlName="email" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width small">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <div class="row password">
+                <div class="column session-started">
+                    <mat-checkbox>Mantener la sesión activa</mat-checkbox>
+                </div>
+                <div class="column forget-password">¿Olvidaste la contraseña?</div>
+            </div>
+            <div class="create-account-row">
+                ¿No estás registrado? <span (click)="createAccount()">Crea una cuenta</span>
+            </div>
+
+            <button mat-raised-button class="submit-btn" type="submit" [disabled]="loginForm.invalid">Entrar</button>
+        </form>
+
+    </mat-card>
+</div>

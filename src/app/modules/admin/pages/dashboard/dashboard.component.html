@@ -1,0 +1,113 @@
+<div class="dashboard">
+    <div class="cards">
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-label class="number-card">{{accounts}}</mat-label>
+                <br>
+                <mat-label class="title-card">Cuentas</mat-label>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-label class="number-card">{{users}}</mat-label>
+                <br>
+                <mat-label class="title-card">Usuarios</mat-label>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-label class="number-card">{{monitored}}</mat-label>
+                <br>
+                <mat-label class="title-card">Personas</mat-label>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-label class="number-card">{{devicesIoT}}</mat-label>
+                <br>
+                <mat-label class="title-card">Módems</mat-label>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="table-div">
+        <div class="filter-row">
+            <mat-form-field class="filter" appearance="outline">
+                <mat-label>Filtro</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
+            </mat-form-field>
+            <button mat-raised-button class="create-tenant-btn" (click)="createTenant()">Agregar cuenta</button>
+        </div>
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <!-- Owner Column -->
+                <ng-container matColumnDef="owner">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Dueño </th>
+                    <td mat-cell *matCellDef="let row"> {{row.owner}} </td>
+                </ng-container>
+
+                <!-- Users Column -->
+                <ng-container matColumnDef="users">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuarios </th>
+                    <td mat-cell *matCellDef="let row"> {{row.users}} </td>
+                </ng-container>
+
+                <!-- IoT Devices Column -->
+                <ng-container matColumnDef="devices">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Módems </th>
+                    <td mat-cell *matCellDef="let row"> {{row.devices}} </td>
+                </ng-container>
+
+                <!-- IoT Device Status Column -->
+                <ng-container matColumnDef="deviceIoT">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Módems Status </th>
+                    <td mat-cell *matCellDef="let row" style="text-align: center; vertical-align: middle;">
+                        <mat-icon *ngIf="row.deviceIoT === 'On'" class="on-icon">radio_button_checked</mat-icon>
+                        <mat-icon *ngIf="row.deviceIoT === 'Off'" class="off-icon">radio_button_checked</mat-icon>
+                        <mat-icon *ngIf="row.deviceIoT === 'Suspended'"
+                            class="suspended-icon">radio_button_checked</mat-icon>
+                    </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Personas Status </th>
+                    <td mat-cell *matCellDef="let row" style="text-align: center; vertical-align: middle;">
+                        <mat-icon *ngIf="row.status === 'On'" class="on-icon">radio_button_checked</mat-icon>
+                        <mat-icon *ngIf="row.status === 'Off'" class="off-icon">radio_button_checked</mat-icon>
+                        <mat-icon *ngIf="row.status === 'Suspended'"
+                            class="suspended-icon">radio_button_checked</mat-icon>
+                    </td>
+                </ng-container>
+
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                    <td mat-cell *matCellDef="let row"><button mat-button (click)="seeDetails(row.id)"
+                            matTooltip="Ver detalles"><mat-icon
+                                class="material-icons-outlined see-icon">visibility</mat-icon></button>
+                        <button mat-button (click)="deleteTenant(row.id)" matTooltip="Eliminar"><mat-icon
+                                class="material-icons-outlined delete-icon ">delete</mat-icon></button>
+                    </td>
+
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No hay resultados "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[8, 10, 25, 100]" aria-label="Select page of users"
+                showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>

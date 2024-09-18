@@ -1,0 +1,295 @@
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-in-row {
+    justify-content: center;
+    align-items: center;
+    margin: 1% 0;
+}
+
+.sign-in-card:hover {
+    box-shadow: 0 15px 16px rgba(0, 0, 0, 0.2);
+}
+
+.sign-in-card {
+    width: 32%;
+    margin: 2% 0;
+    padding: 2%;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+
+
+    .title {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: bold;
+        font-size: 25px;
+        font-style: normal;
+        color: #FF6F61;
+        letter-spacing: 1px;
+        margin-bottom: 3%;
+    }
+
+    .subtitle {
+        font-size: 12px;
+        font-style: normal;
+        color: #718096;
+        margin-bottom: 3%;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 3%;
+    }
+
+    .account-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40%;
+        height: 25%;
+        border: 1px solid #00B2A9;
+        background-color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease;
+        text-align: center;
+
+        img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .account-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #00B2A9;
+        }
+    }
+
+    .account-button-selected {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40%;
+        height: 25%;
+        border: 1px solid #00B2A9;
+        background-color: #00B2A9;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease;
+        text-align: center;
+
+        img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .account-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: white;
+        }
+    }
+
+    .account-button:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .account-icon {
+        font-size: 48px;
+        margin-bottom: 10px;
+    }
+
+
+    .google-login-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4% 0%;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+        color: #718096;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 600;
+    }
+
+    .google-login-btn img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    .google-login-btn:hover {
+        background-color: #f5f5f5;
+    }
+
+    .divider-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .line {
+        flex: 1;
+        height: 1px;
+        background-color: #d3d3d3;
+    }
+
+    .circle {
+        width: 8px;
+        height: 8px;
+        border: 2px solid #d3d3d3;
+        border-radius: 50%;
+        margin: 0 10px;
+    }
+
+    .full-width {
+        width: 100%;
+        margin-bottom: 2%;
+        height: 23%;
+    }
+
+    mat-form-field {
+        display: block;
+
+    }
+
+    mat-icon {
+        color: #00B2A9;
+    }
+
+    .submit-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6% 0%;
+        background-color: #00B2A9;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+        color: white;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 600;
+        width: 100%
+    }
+
+    .submit-btn:disabled {
+        color: #c0c0c0;
+        background-color: #ffffff;
+    }
+
+    .password {
+        margin: 3% 5%;
+    }
+
+    .session-started {
+        width: 50%;
+        margin: auto;
+        font-size: 12px;
+        font-style: normal;
+    }
+
+    .forget-password {
+        width: 50%;
+        margin: auto;
+        font-size: 12px;
+        font-style: normal;
+        color: #603CFF;
+        text-align: right;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .create-account-row {
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        color: #718096;
+        margin-bottom: 3%;
+
+        span {
+            color: #FF6F61;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    }
+
+
+
+}
+
+
+:host ::ng-deep .mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 8px;
+}
+
+
+:host ::ng-deep {
+    .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused):not(.mdc-text-field--disabled) {
+        .mdc-notched-outline>* {
+            border-color: #ccc !important;
+        }
+    }
+}
+
+.mat-mdc-checkbox {
+    --mdc-checkbox-selected-checkmark-color: #ffffff;
+    --mdc-checkbox-selected-icon-color: #1B2559;
+    --mdc-checkbox-selected-focus-icon-color: #1B2559;
+    --mdc-checkbox-selected-hover-icon-color: #1B2559;
+    --mdc-checkbox-selected-pressed-icon-color: #1B2559;
+    --mdc-checkbox-state-layer-size: 0;
+    --mdc-checkbox-unselected-focus-state-layer-opacity: 0;
+
+    &.mat-mdc-checkbox-disabled {
+        .mdc-checkbox {
+            .mdc-checkbox__background {
+                --mdc-checkbox-disabled-selected-icon-color: transparent;
+
+                .mdc-checkbox__checkmark {
+                    color: #1B2559;
+                }
+            }
+        }
+    }
+
+    .mdc-checkbox {
+        .mdc-checkbox__background {
+            color: #1B2559;
+        }
+    }
+
+    .mdc-form-field {
+        --mdc-typography-body2-letter-spacing: normal;
+    }
+}
+
+::ng-deep .mdc-label {
+    font-size: 12px;
+    font-style: normal;
+    color: #1B2559;
+    letter-spacing: 1px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    margin-bottom: -1.25em;
+}

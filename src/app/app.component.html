@@ -1,0 +1,4 @@
+<app-sidebar *ngIf="showHead; else elseBlock"></app-sidebar>
+<ng-template #elseBlock>
+    <router-outlet></router-outlet>
+</ng-template>

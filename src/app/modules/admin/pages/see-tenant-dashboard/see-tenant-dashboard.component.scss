@@ -1,0 +1,115 @@
+.body {
+    padding: 2%;
+
+    .title {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: bold;
+        font-size: 25px;
+        font-style: normal;
+        color: #FF6F61;
+        letter-spacing: 1px;
+        margin-bottom: 3%;
+    }
+
+    .subtitle {
+        font-size: 20px;
+        font-style: normal;
+        color: #718096;
+        margin-bottom: 1%;
+    }
+
+    .table-div {
+        padding: 0 0 2%;
+    }
+
+    .filter-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .filter {
+        display: flex;
+        flex-direction: column;
+        margin-right: 1%;
+    }
+
+    .create-tenant-btn {
+        display: flex;
+        flex-direction: column;
+        height: 57px;
+        align-items: center;
+        justify-content: center;
+        background-color: #00B2A9;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+        color: white;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 600;
+        margin-right: 1%;
+    }
+
+    .link-btn {
+        height: 57px;
+        align-items: center;
+        justify-content: center;
+        background-color: #bab9b9;
+        border: 1px solid #bab9b9;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 600;
+
+        mat-icon {
+            transform: rotate(135deg)
+        }
+    }
+
+    .mat-elevation-z8 {
+        max-height: 600px;
+        overflow-y: auto;
+        border-radius: 8px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow-x: auto;
+    }
+
+    th,
+    td {
+        width: 25%;
+        white-space: nowrap;
+
+        .see-icon {
+            color: #00B2A9;
+        }
+
+        .delete-icon {
+            color: red;
+        }
+
+        .on-icon {
+            color: #05840f;
+        }
+
+        .off-icon {
+            color: red;
+        }
+
+        .suspended-icon {
+            color: rgb(244, 244, 24);
+        }
+    }
+
+    .mat-mdc-form-field {
+        font-size: 14px;
+        width: 100%;
+    }
+
+}
